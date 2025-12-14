@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ paper.title }} - arXiv CS Daily{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('papers', category=paper.categories[0]) }}">{{ categories[paper.categories[0]] }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Paper Details</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ paper.title }}</h1>
+        <p class="text-muted">
+            By {{ paper.authors|join(', ') }} • 
+            {{ paper.published.strftime('%B %d, %Y') if paper.published else 'Date unknown' }}
+        </p>
+        
+        <div class="mb-3">
+            {% for cat in paper.categories %}
+                <span class="badge bg-secondary">{{ cat }}</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Abstract</h3>
+        <p>{{ paper.summary }}</p>
+        
+        <div class="mt-4">
+            <a href="{{ paper.arxiv_link }}" target="_blank" class="btn btn-outline-primary">View on arXiv</a>
+            {% if paper.link %}
+                <a href="{{ paper.link }}" target="_blank" class="btn btn-success">Download PDF</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Cite This Paper</h5>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="citationTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="bibtex-tab" data-bs-toggle="tab" data-bs-target="#bibtex" type="button">BibTeX</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="apa-tab" data-bs-toggle="tab" data-bs-target="#apa" type="button">APA</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="mla-tab" data-bs-toggle="tab" data-bs-target="#mla" type="button">MLA</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="citationTabContent">
+                    <div class="tab-pane fade show active" id="bibtex" role="tabpanel">
+                        <pre class="citation-text">{{ bibtex }}</pre>
+                        <button class="btn btn-sm btn-outline-primary copy-btn" data-clipboard-text="{{ bibtex }}">Copy</button>
+                    </div>
+                    <div class="tab-pane fade" id="apa" role="tabpanel">
+                        <p class="citation-text">{{ apa }}</p>
+                        <button class="btn btn-sm btn-outline-primary copy-btn" data-clipboard-text="{{ apa }}">Copy</button>
+                    </div>
+                    <div class="tab-pane fade" id="mla" role="tabpanel">
+                        <p class="citation-text">{{ mla }}</p>
+                        <button class="btn btn-sm btn-outline-primary copy-btn" data-clipboard-text="{{ mla }}">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

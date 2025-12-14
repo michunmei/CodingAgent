@@ -1,0 +1,49 @@
+# Prompt examples
+
+## web application
+Build a personal finance tracker web application with:
+- Dashboard showing income/expenses overview
+- Category-based expense tracking
+- Monthly budget planning
+- Data visualization with charts
+- Local storage for data persistence
+
+## tools  
+Create a Python script that:
+- Monitors system performance (CPU, memory, disk usage)
+- Sends email alerts when thresholds are exceeded
+- Generates daily reports in HTML format
+- Can be run as a background service
+- Includes configuration file support
+
+## data analysis
+Develop a data analysis dashboard for:
+- CSV file import and processing
+- Statistical analysis and visualization
+- Interactive charts and graphs
+- Export results to PDF/Excel
+- Support for multiple data formats
+
+## API service
+Build a REST API service with:
+- User authentication and authorization
+- CRUD operations for todo items
+- Rate limiting and request validation
+- API documentation with Swagger
+- Database integration with SQLite/PostgreSQL
+
+## games
+Create a web-based puzzle game:
+- Grid-based logic puzzle (like Sudoku)
+- Multiple difficulty levels
+- Score tracking and leaderboards
+- Responsive design for mobile/desktop
+- Save/load game progress
+
+## automation tools
+Build an automation script that:
+- Monitors file system changes
+- Processes new files automatically
+- Generates thumbnails for images
+- Organizes files into folders by date/type
+- Sends notifications on completion

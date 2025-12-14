@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ paper.title }} - arXiv CS Daily</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1><a href="/">arXiv CS Daily</a></h1>
+    </header>
+    
+    <main>
+        <article class="paper-detail">
+            <h1>{{ paper.title }}</h1>
+            <p class="authors">by {{ paper.authors|join(', ') }}</p>
+            <p class="date">Published: {{ paper.published[:10] }}</p>
+            
+            <div class="tags">
+                {% for category in paper.categories %}
+                    <span class="tag">{{ category }}</span>
+                {% endfor %}
+            </div>
+            
+            <div class="actions">
+                <a href="{{ paper.link }}" target="_blank" class="btn">View PDF</a>
+            </div>
+            
+            <h2>Abstract</h2>
+            <p class="abstract">{{ paper.summary }}</p>
+            
+            <section class="citations">
+                <h2>Cite this Paper</h2>
+                
+                <div class="citation-option">
+                    <h3>BibTeX</h3>
+                    <pre id="bibtex">{{ paper.bibtex }}</pre>
+                    <button class="copy-btn" data-target="bibtex">Copy BibTeX</button>
+                </div>
+                
+                <div class="citation-option">
+                    <h3>APA</h3>
+                    <p id="apa">{{ paper.apa }}</p>
+                    <button class="copy-btn" data-target="apa">Copy APA</button>
+                </div>
+                
+                <div class="citation-option">
+                    <h3>MLA</h3>
+                    <p id="mla">{{ paper.mla }}</p>
+                    <button class="copy-btn" data-target="mla">Copy MLA</button>
+                </div>
+            </section>
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 arXiv CS Daily. Updated daily.</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='citation.js') }}"></script>
+</body>
+</html>

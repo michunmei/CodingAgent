@@ -1,0 +1,1 @@
+" Build an arXiv CS Daily webpage with domain-specific navigation system for categorized browsing (cs.AI, cs.CV, cs.CL, cs.LG), quick filtering between major subfields, daily updated paper list with arXiv field tags, and dedicated paper detail pages with PDF links and citation generation tools (BibTeX, APA, MLA) with one-click copy functionality "

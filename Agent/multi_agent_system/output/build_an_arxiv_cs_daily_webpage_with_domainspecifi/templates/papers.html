@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category_name }} - arXiv CS Daily{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ category_name }}</li>
+    </ol>
+</nav>
+
+<h1>{{ category_name }}</h1>
+<p class="text-muted">Latest papers in {{ category }}</p>
+
+<div class="mb-3">
+    <strong>Filter by:</strong>
+    {% for key, value in categories.items() %}
+        {% if key == category %}
+            <span class="badge bg-primary">{{ value }}</span>
+        {% else %}
+            <a href="{{ url_for('papers', category=key) }}" class="badge bg-secondary text-decoration-none">{{ value }}</a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% if papers %}
+    {% for paper in papers %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{{ url_for('paper_detail', paper_id=paper.id) }}" class="text-decoration-none">{{ paper.title }}</a>
+            </h5>
+            <p class="card-text">
+                <small class="text-muted">
+                    By {{ paper.authors|join(', ') }} • 
+                    {{ paper.published.strftime('%B %d, %Y') if paper.published else 'Date unknown' }}
+                </small>
+            </p>
+            <p class="card-text">{{ paper.summary|truncate(300) }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    {% for cat in paper.categories %}
+                        <span class="badge bg-secondary">{{ cat }}</span>
+                    {% endfor %}
+                </div>
+                <div>
+                    <a href="{{ paper.arxiv_link }}" target="_blank" class="btn btn-outline-primary btn-sm">arXiv</a>
+                    {% if paper.link %}
+                        <a href="{{ paper.link }}" target="_blank" class="btn btn-outline-success btn-sm">PDF</a>
+                    {% endif %}
+                    <a href="{{ url_for('paper_detail', paper_id=paper.id) }}" class="btn btn-primary btn-sm">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No papers found for this category.</p>
+{% endif %}
+{% endblock %}

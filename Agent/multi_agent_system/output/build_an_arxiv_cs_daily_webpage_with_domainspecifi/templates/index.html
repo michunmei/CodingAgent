@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arXiv CS Daily</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>arXiv CS Daily</h1>
+        <nav>
+            <ul class="category-nav">
+                {% for cat_key, cat_name in categories.items() %}
+                    <li><a href="?category={{ cat_key }}" class="{% if current_category == cat_key %}active{% endif %}">{{ cat_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="papers-list">
+            {% for paper in papers %}
+                <article class="paper-card">
+                    <h2><a href="{{ url_for('paper_detail', paper_id=paper.id) }}">{{ paper.title }}</a></h2>
+                    <p class="authors">by {{ paper.authors|join(', ') }}</p>
+                    <p class="date">Published: {{ paper.published[:10] }}</p>
+                    <p class="summary">{{ paper.summary[:200] }}...</p>
+                    <div class="tags">
+                        {% for category in paper.categories %}
+                            <span class="tag">{{ category }}</span>
+                        {% endfor %}
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 arXiv CS Daily. Updated daily.</p>
+    </footer>
+</body>
+</html>
